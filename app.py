@@ -77,6 +77,8 @@ st.divider()
 left,right=st.columns([1,2],gap='large')
 with left:
  emotion=st.session_state.emotion
+ current_line=s['question'] if st.session_state.step==0 else s['followup']
+ speech_text=json.dumps(current_line,ensure_ascii=False).replace('<','\\u003c')
  svg_markup=(Path(__file__).parent/f'umka_{emotion}.svg').read_text(encoding='utf-8')
  emotion_text={'curious':'😊 Готов учиться!','thinking':'🤔 Думаю над ответом...','happy':'🎉 Ура, я понял!'}[emotion]
  # SVG is embedded inline in its own HTML document: blinking/waving animations remain active.
@@ -90,7 +92,33 @@ with left:
  h2{{margin:0 0 6px}}p{{margin:0}}
  @keyframes bob{{0%,100%{{transform:translateY(0)}}50%{{transform:translateY(-10px)}}}}
  </style></head><body><div class="card"><div class="avatar">{svg_markup}</div>
- <h2>Умка</h2><p>{emotion_text}</p></div></body></html>'''
+ <h2>Умка</h2><p>{emotion_text}</p>
+ <button id="speak">🔊 Озвучить реплику</button><button id="stop">⏹ Стоп</button>
+ <p id="status" style="font-size:12px"></p></div>
+ <style>
+ button{{border:0;border-radius:10px;padding:10px;margin:10px 3px;background:#f6d66a;color:#15214a;font-weight:bold;cursor:pointer}}
+ svg.speaking .mouth{{animation:talk .25s ease-in-out infinite!important}}
+ </style>
+ <script>
+ const phrase={speech_text}, speak=document.getElementById('speak'), status=document.getElementById('status');
+ const avatar=document.querySelector('svg');
+ const ok=('speechSynthesis' in window);
+ if(!ok){{speak.disabled=true;status.textContent='Озвучка недоступна в этом браузере';}}
+ function stopVoice(){{if(ok)speechSynthesis.cancel();avatar.classList.remove('speaking');speak.disabled=!ok;}}
+ speak.onclick=()=>{{
+   stopVoice();
+   const utterance=new SpeechSynthesisUtterance(phrase);
+   utterance.lang='ru-RU';utterance.rate=.92;utterance.pitch=1.12;
+   const voice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith('ru'));
+   if(voice)utterance.voice=voice;
+   utterance.onstart=()=>{{avatar.classList.add('speaking');speak.disabled=true;status.textContent='Умка говорит...';}};
+   utterance.onend=()=>{{stopVoice();status.textContent='';}};
+   utterance.onerror=()=>{{stopVoice();status.textContent='Не удалось воспроизвести речь';}};
+   speechSynthesis.speak(utterance);
+ }};
+ document.getElementById('stop').onclick=()=>{{stopVoice();status.textContent='';}};
+ window.addEventListener('pagehide',stopVoice);
+ </script></body></html>'''
  components.html(avatar_html,height=440,scrolling=False)
 with right:
  st.subheader(f'{s["icon"]} {s["name"]}')
