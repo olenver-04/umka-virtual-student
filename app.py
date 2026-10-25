@@ -1,8 +1,8 @@
 import json
-import base64
 from html import escape
 from pathlib import Path
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title='Умка — учусь у тебя!', page_icon='🧑‍🎓', layout='wide')
 DEFAULT = {
@@ -76,10 +76,22 @@ s=scenario['stages'][st.session_state.stage]
 st.divider()
 left,right=st.columns([1,2],gap='large')
 with left:
- svg_bytes=(Path(__file__).parent/'umka_schoolboy.svg').read_bytes()
- avatar=base64.b64encode(svg_bytes).decode('ascii')
- emotion_text={'curious':'😊 Готов учиться!','thinking':'🤔 Думаю над ответом...','happy':'🎉 Ура, я понял!'}[st.session_state.emotion]
- st.markdown(f'<div class="robot-box"><img class="schoolboy" alt="Мультяшный школьник Умка" src="data:image/svg+xml;base64,{avatar}"><h2>Умка</h2><p>{emotion_text}</p></div>',unsafe_allow_html=True)
+ svg_markup=(Path(__file__).parent/'umka_schoolboy.svg').read_text(encoding='utf-8')
+ emotion=st.session_state.emotion
+ emotion_text={'curious':'😊 Готов учиться!','thinking':'🤔 Думаю над ответом...','happy':'🎉 Ура, я понял!'}[emotion]
+ # SVG is embedded inline in its own HTML document: blinking/waving animations remain active.
+ # Streamlit markdown's <img src=data:...> may prevent SVG's internal animation in some browsers.
+ avatar_html=f'''<!doctype html><html lang="ru"><head><meta charset="utf-8">
+ <style>
+ body{{margin:0;background:transparent;color:#f5f7ff;font-family:Arial,sans-serif;text-align:center;overflow:hidden}}
+ .card{{background:linear-gradient(150deg,#253e79,#111e42);border:2px solid #536bc0;border-radius:28px;padding:12px 8px;box-sizing:border-box;min-height:425px}}
+ .avatar{{max-width:300px;margin:0 auto;animation:bob 2.7s ease-in-out infinite}}
+ svg{{width:100%;height:325px}}
+ h2{{margin:0 0 6px}}p{{margin:0}}
+ @keyframes bob{{0%,100%{{transform:translateY(0)}}50%{{transform:translateY(-10px)}}}}
+ </style></head><body><div class="card"><div class="avatar">{svg_markup}</div>
+ <h2>Умка</h2><p>{emotion_text}</p></div></body></html>'''
+ components.html(avatar_html,height=440,scrolling=False)
 with right:
  st.subheader(f'{s["icon"]} {s["name"]}')
  line=s['question'] if st.session_state.step==0 else s['followup']
