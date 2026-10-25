@@ -76,8 +76,8 @@ s=scenario['stages'][st.session_state.stage]
 st.divider()
 left,right=st.columns([1,2],gap='large')
 with left:
- svg_markup=(Path(__file__).parent/'umka_schoolboy.svg').read_text(encoding='utf-8')
  emotion=st.session_state.emotion
+ svg_markup=(Path(__file__).parent/f'umka_{emotion}.svg').read_text(encoding='utf-8')
  emotion_text={'curious':'😊 Готов учиться!','thinking':'🤔 Думаю над ответом...','happy':'🎉 Ура, я понял!'}[emotion]
  # SVG is embedded inline in its own HTML document: blinking/waving animations remain active.
  # Streamlit markdown's <img src=data:...> may prevent SVG's internal animation in some browsers.
