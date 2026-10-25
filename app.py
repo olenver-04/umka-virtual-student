@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import streamlit as st
 
-st.set_page_config(page_title='Умка — учусь у тебя!', page_icon='🤖', layout='wide')
+st.set_page_config(page_title='Умка — учусь у тебя!', page_icon='🧑‍🎓', layout='wide')
 DEFAULT = {
  'topic':'Как беречь природу?',
  'stages':[
@@ -25,14 +25,14 @@ st.markdown('''<style>
 h1,h2,h3,p,label{color:#f5f7ff!important}
 .hero{text-align:center;padding:12px 0 24px}.hero h1{font-size:clamp(34px,5vw,58px);margin:0}.hero p{font-size:20px;color:#cbd9ff!important}
 .robot-box{background:linear-gradient(150deg,#253e79,#111e42);border:2px solid #536bc0;border-radius:30px;padding:20px 10px;text-align:center;box-shadow:0 20px 50px #0005}
-.robot{font-size:125px;line-height:1.3;animation:bob 2.7s ease-in-out infinite;filter:drop-shadow(0 12px 12px #0005)}
+.robot-box img{max-width:290px;margin:auto;animation:bob 2.7s ease-in-out infinite;filter:drop-shadow(0 12px 12px #0005)}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 .bubble{background:#f8faff;color:#15214a;border-radius:24px 24px 24px 6px;padding:24px;font-size:24px;font-weight:650;min-height:160px;box-shadow:0 12px 32px #0004}
 .stage{background:#1c2c58;border:1px solid #5670b8;border-radius:15px;padding:13px;text-align:center;min-height:95px}
 .stage small{color:#d5e2ff}div.stButton button{border-radius:14px;min-height:52px;font-weight:700}
 </style>''',unsafe_allow_html=True)
 
-st.markdown('<div class="hero"><h1>🤖 УМКА — УЧУСЬ У ТЕБЯ!</h1><p>Сегодня ученик — учитель! • Универсальный школьный лайфхак</p></div>',unsafe_allow_html=True)
+st.markdown('<div class="hero"><h1>🧑‍🎓 УМКА — УЧУСЬ У ТЕБЯ!</h1><p>Сегодня ученик — учитель! • Универсальный школьный лайфхак</p></div>',unsafe_allow_html=True)
 scenario=st.session_state.scenario
 with st.sidebar:
  st.header('👩‍🏫 Панель учителя')
@@ -74,8 +74,9 @@ s=scenario['stages'][st.session_state.stage]
 st.divider()
 left,right=st.columns([1,2],gap='large')
 with left:
- mood={'curious':'🤖','thinking':'🧐','happy':'🥳'}[st.session_state.emotion]
- st.markdown(f'<div class="robot-box"><div class="robot">{mood}</div><h2>Умка</h2><p>Ваш виртуальный одноклассник</p></div>',unsafe_allow_html=True)
+ mood=st.session_state.emotion
+ st.image(str(Path(__file__).parent / f'umka_{mood}.svg'),width=290)
+ st.markdown('<div style="text-align:center"><h2>Умка</h2><p>Ваш виртуальный одноклассник</p></div>',unsafe_allow_html=True)
 with right:
  st.subheader(f'{s["icon"]} {s["name"]}')
  line=s['question'] if st.session_state.step==0 else s['followup']

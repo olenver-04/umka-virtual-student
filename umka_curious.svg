@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 340">
+<defs><linearGradient id="vest" x2="1" y2="1"><stop stop-color="#3876ca"/><stop offset="1" stop-color="#172f79"/></linearGradient></defs>
+<ellipse cx="150" cy="325" rx="90" ry="12" fill="#000" opacity=".12"/>
+<path d="M62 325 Q55 238 100 222 L200 222 Q245 238 238 325Z" fill="#e8f1ff"/>
+<path d="M104 226 L151 250 L197 226 L217 325 L82 325Z" fill="url(#vest)"/>
+<path d="M133 223 L150 253 L167 223" fill="white"/><path d="M150 249 L142 268 L151 304 L161 268Z" fill="#efb83d"/>
+<rect x="104" y="273" width="92" height="35" rx="10" fill="#fff"/><text x="150" y="297" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="bold" fill="#17396d">Умка</text>
+<path d="M98 76 Q75 24 130 33 Q168 9 201 45 Q241 58 213 112 L87 110Z" fill="#51352e"/>
+<ellipse cx="150" cy="130" rx="78" ry="91" fill="#ffd5ae"/>
+<ellipse cx="74" cy="141" rx="13" ry="20" fill="#ffd5ae"/><ellipse cx="226" cy="141" rx="13" ry="20" fill="#ffd5ae"/>
+<path d="M77 104 Q67 54 104 49 Q119 24 154 43 Q185 17 211 60 Q231 77 221 105 Q190 93 175 68 Q157 91 127 79 Q106 109 77 104Z" fill="#51352e"/>
+<path d="M101 107 Q116 99 131 109 M170 109 Q184 100 198 108" stroke="#56392f" stroke-width="6" stroke-linecap="round" fill="none"/>
+<circle cx="116" cy="126" r="7"/><circle cx="184" cy="126" r="7"/><ellipse cx="105" cy="153" rx="13" ry="7" fill="#ef9d94" opacity=".55"/><ellipse cx="195" cy="153" rx="13" ry="7" fill="#ef9d94" opacity=".55"/>
+<ellipse cx="150" cy="163" rx="9" ry="12" fill="#a74753"/>
+<path d="M226 242 Q263 216 264 184" fill="none" stroke="#e8f1ff" stroke-width="28" stroke-linecap="round"/>
+<ellipse cx="263" cy="178" rx="15" ry="23" fill="#ffd5ae" transform="rotate(18 263 178)"/>
+</svg>
