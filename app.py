@@ -1,4 +1,6 @@
 import json
+import base64
+from html import escape
 from pathlib import Path
 import streamlit as st
 
@@ -25,7 +27,7 @@ st.markdown('''<style>
 h1,h2,h3,p,label{color:#f5f7ff!important}
 .hero{text-align:center;padding:12px 0 24px}.hero h1{font-size:clamp(34px,5vw,58px);margin:0}.hero p{font-size:20px;color:#cbd9ff!important}
 .robot-box{background:linear-gradient(150deg,#253e79,#111e42);border:2px solid #536bc0;border-radius:30px;padding:20px 10px;text-align:center;box-shadow:0 20px 50px #0005}
-.robot-box img{max-width:290px;margin:auto;animation:bob 2.7s ease-in-out infinite;filter:drop-shadow(0 12px 12px #0005)}
+.schoolboy{display:block;width:min(100%,300px);height:330px;margin:0 auto;animation:bob 2.7s ease-in-out infinite;filter:drop-shadow(0 12px 12px #0005)}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 .bubble{background:#f8faff;color:#15214a;border-radius:24px 24px 24px 6px;padding:24px;font-size:24px;font-weight:650;min-height:160px;box-shadow:0 12px 32px #0004}
 .stage{background:#1c2c58;border:1px solid #5670b8;border-radius:15px;padding:13px;text-align:center;min-height:95px}
@@ -66,7 +68,7 @@ cols=st.columns(4)
 for i,(col,s) in enumerate(zip(cols,scenario['stages'])):
  with col:
   mark='✅' if st.session_state.done[i] else ('🔵' if i==st.session_state.stage else '⚪')
-  st.markdown(f'<div class="stage">{mark} {s["icon"]}<br><b>{s["name"]}</b></div>',unsafe_allow_html=True)
+  st.markdown(f'<div class="stage">{mark} {s["icon"]}<br><b>{escape(s["name"])}</b></div>',unsafe_allow_html=True)
   if st.button('Выбрать этап',key=f'choose{i}',use_container_width=True):
    st.session_state.stage=i;st.session_state.step=0;st.session_state.emotion='curious';st.rerun()
 
@@ -74,13 +76,14 @@ s=scenario['stages'][st.session_state.stage]
 st.divider()
 left,right=st.columns([1,2],gap='large')
 with left:
- mood=st.session_state.emotion
- st.image(str(Path(__file__).parent / f'umka_{mood}.svg'),width=290)
- st.markdown('<div style="text-align:center"><h2>Умка</h2><p>Ваш виртуальный одноклассник</p></div>',unsafe_allow_html=True)
+ svg_bytes=(Path(__file__).parent/'umka_schoolboy.svg').read_bytes()
+ avatar=base64.b64encode(svg_bytes).decode('ascii')
+ emotion_text={'curious':'😊 Готов учиться!','thinking':'🤔 Думаю над ответом...','happy':'🎉 Ура, я понял!'}[st.session_state.emotion]
+ st.markdown(f'<div class="robot-box"><img class="schoolboy" alt="Мультяшный школьник Умка" src="data:image/svg+xml;base64,{avatar}"><h2>Умка</h2><p>{emotion_text}</p></div>',unsafe_allow_html=True)
 with right:
  st.subheader(f'{s["icon"]} {s["name"]}')
  line=s['question'] if st.session_state.step==0 else s['followup']
- st.markdown(f'<div class="bubble">{line}</div>',unsafe_allow_html=True)
+ st.markdown(f'<div class="bubble">{escape(line)}</div>',unsafe_allow_html=True)
  st.info(f'💡 Учителю: {s["hint"]}')
  st.caption('Умка работает по сценарию. Ответы учеников оценивает учитель, а не программа.')
  a,b,c=st.columns(3)
