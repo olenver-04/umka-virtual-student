@@ -13,9 +13,9 @@
 <ellipse cx="78" cy="157" rx="14" ry="21" fill="#ffd7b0"/><ellipse cx="242" cy="157" rx="14" ry="21" fill="#ffd7b0"/>
 <path d="M76 121 Q56 64 108 57 Q123 29 163 51 Q194 25 220 64 Q251 82 239 123 Q212 115 192 83 Q174 108 139 89 Q109 126 76 121Z" fill="#51382f"/>
 <path d="M112 124 Q127 117 140 126 M182 126 Q195 116 211 125" stroke="#654336" stroke-width="6" fill="none" stroke-linecap="round"/>
-<g class="eyes thinking-eyes"><ellipse cx="125" cy="147" rx="8" ry="11" fill="#302b35"/><ellipse cx="198" cy="147" rx="8" ry="11" fill="#302b35"/><circle cx="128" cy="143" r="3" fill="white"/><circle cx="201" cy="143" r="3" fill="white"/></g>
+<g class="eyes"><ellipse cx="125" cy="147" rx="8" ry="11" fill="#302b35"/><ellipse cx="198" cy="147" rx="8" ry="11" fill="#302b35"/><circle cx="128" cy="143" r="3" fill="white"/><circle cx="201" cy="143" r="3" fill="white"/></g>
 <ellipse cx="114" cy="172" rx="14" ry="7" fill="#f6a49d" opacity=".65"/><ellipse cx="211" cy="172" rx="14" ry="7" fill="#f6a49d" opacity=".65"/>
-<g class="mouth"><path d="M148 194 Q163 188 176 194" stroke="#a74b57" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+<g class="mouth"><path d="M139 185 Q161 191 184 185Z" fill="#a74b57"/><path d="M145 189 Q161 194 177 189" stroke="white" stroke-width="4" fill="none"/></g>
 <style>
 .eyes{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
 .wave{transform-box:fill-box;transform-origin:bottom center;animation:none}
@@ -23,4 +23,4 @@
 @keyframes blink{0%,43%,47%,100%{transform:scaleY(1)}45%{transform:scaleY(.1)}}
 @keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(17deg)}}
 @keyframes talk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.45)}}
- .thinking-eyes{animation:blink 5s infinite} </style></svg>
+</style><text x="258" y="70" font-size="42" text-anchor="middle">💭</text></svg>

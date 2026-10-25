@@ -20,6 +20,16 @@ if 'stage' not in st.session_state: st.session_state.stage=0
 if 'step' not in st.session_state: st.session_state.step=0
 if 'done' not in st.session_state: st.session_state.done=[False]*4
 if 'emotion' not in st.session_state: st.session_state.emotion='curious'
+EMOTIONS = {
+ 'curious':('😊 Любопытство','Внимательно слушаю!'),
+ 'thinking':('🤔 Размышление','Мне нужно подумать...'),
+ 'surprised':('😮 Удивление','Вот это неожиданно!'),
+ 'sad':('😢 Грусть','Ой, я ошибся...'),
+ 'happy':('😄 Радость','Теперь я понял!'),
+ 'hand':('🙋 Поднятая рука','Можно задать вопрос?'),
+ 'sleepy':('😴 Сонливость','Мне бы немного взбодриться...'),
+ 'graduate':('🎓 Выпускник','Ура! Я всему научился!'),
+}
 
 st.markdown('''<style>
 .stApp{background:radial-gradient(ellipse at 50% 0%,#233568,#0b1128 70%);color:#f5f7ff}
@@ -59,7 +69,7 @@ with st.sidebar:
    st.rerun()
   except (ValueError,KeyError,TypeError,json.JSONDecodeError) as e:st.error(f'Не удалось загрузить: {e}')
  if st.button('🔄 Начать урок заново',use_container_width=True):
-  st.session_state.stage=0;st.session_state.step=0;st.session_state.done=[False]*4;st.session_state.emotion='curious';st.rerun()
+  st.session_state.stage=0;st.session_state.step=0;st.session_state.done=[False]*4;st.session_state.emotion='curious';st.session_state.celebrated=False;st.rerun()
 
 st.markdown(f'### 📚 Тема: {scenario["topic"]}')
 progress=sum(st.session_state.done)*25
@@ -73,6 +83,13 @@ for i,(col,s) in enumerate(zip(cols,scenario['stages'])):
    st.session_state.stage=i;st.session_state.step=0;st.session_state.emotion='curious';st.rerun()
 
 s=scenario['stages'][st.session_state.stage]
+st.markdown('#### 🎭 Эмоции Умки')
+emotion_cols=st.columns(4)
+for i,(key,(label,_)) in enumerate(EMOTIONS.items()):
+ with emotion_cols[i%4]:
+  if st.button(label,key=f'emotion_{key}',use_container_width=True,type='primary' if st.session_state.emotion==key else 'secondary'):
+   st.session_state.emotion=key
+   st.rerun()
 st.divider()
 left,right=st.columns([1,2],gap='large')
 with left:
@@ -80,7 +97,7 @@ with left:
  current_line=s['question'] if st.session_state.step==0 else s['followup']
  speech_text=json.dumps(current_line,ensure_ascii=False).replace('<','\\u003c')
  svg_markup=(Path(__file__).parent/f'umka_{emotion}.svg').read_text(encoding='utf-8')
- emotion_text={'curious':'😊 Готов учиться!','thinking':'🤔 Думаю над ответом...','happy':'🎉 Ура, я понял!'}[emotion]
+ emotion_text=EMOTIONS[emotion][1]
  # SVG is embedded inline in its own HTML document: blinking/waving animations remain active.
  # Streamlit markdown's <img src=data:...> may prevent SVG's internal animation in some browsers.
  avatar_html=f'''<!doctype html><html lang="ru"><head><meta charset="utf-8">
@@ -133,13 +150,15 @@ with right:
  with b:
   if st.button('👏 Этап пройден',use_container_width=True):
    st.session_state.done[st.session_state.stage]=True
-   st.session_state.emotion='happy'
+   st.session_state.emotion='graduate' if all(st.session_state.done) else 'happy'
    st.rerun()
  with c:
   if st.button('➡️ Следующий этап',use_container_width=True):
    st.session_state.stage=(st.session_state.stage+1)%4
    st.session_state.step=0;st.session_state.emotion='curious';st.rerun()
-if all(st.session_state.done):
+if all(st.session_state.done) and not st.session_state.get('celebrated',False):
+ st.session_state.celebrated=True
  st.balloons()
+if all(st.session_state.done):
  st.success('🎓 Умка: «Спасибо, ребята! Теперь я лучше понимаю эту тему. Сегодня вы были моими учителями!»')
 st.caption('Без ИИ и API • Данные не отправляются внешней языковой модели • Для занятий с интерактивной доской')

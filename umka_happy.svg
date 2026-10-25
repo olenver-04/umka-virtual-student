@@ -15,12 +15,12 @@
 <path d="M112 124 Q127 117 140 126 M182 126 Q195 116 211 125" stroke="#654336" stroke-width="6" fill="none" stroke-linecap="round"/>
 <g class="eyes"><ellipse cx="125" cy="147" rx="8" ry="11" fill="#302b35"/><ellipse cx="198" cy="147" rx="8" ry="11" fill="#302b35"/><circle cx="128" cy="143" r="3" fill="white"/><circle cx="201" cy="143" r="3" fill="white"/></g>
 <ellipse cx="114" cy="172" rx="14" ry="7" fill="#f6a49d" opacity=".65"/><ellipse cx="211" cy="172" rx="14" ry="7" fill="#f6a49d" opacity=".65"/>
-<g class="mouth"><path d="M126 179 Q160 230 194 179Z" fill="#a74b57"/><path d="M137 187 Q160 198 183 187" stroke="white" stroke-width="6" fill="none"/></g>
+<g class="mouth"><path d="M139 185 Q161 233 184 185Z" fill="#a74b57"/><path d="M145 189 Q161 194 177 189" stroke="white" stroke-width="4" fill="none"/></g>
 <style>
 .eyes{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
-.wave{transform-box:fill-box;transform-origin:bottom center;animation:wave .7s ease-in-out infinite}
+.wave{transform-box:fill-box;transform-origin:bottom center;animation:wave .65s ease-in-out infinite}
 .mouth{transform-box:fill-box;transform-origin:center;animation:none}
 @keyframes blink{0%,43%,47%,100%{transform:scaleY(1)}45%{transform:scaleY(.1)}}
 @keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(17deg)}}
 @keyframes talk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.45)}}
-</style></svg>
+</style><text x="258" y="70" font-size="42" text-anchor="middle">⭐</text></svg>

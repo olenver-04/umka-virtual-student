@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 370">
+<defs><linearGradient id="vest" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#568de5"/><stop offset="1" stop-color="#243b86"/></linearGradient></defs>
+<ellipse cx="160" cy="354" rx="112" ry="12" fill="#000" opacity=".13"/>
+<path d="M70 349 Q61 245 113 236 L210 236 Q263 258 251 349Z" fill="#e9f3ff"/>
+<path d="M113 239 L158 265 L207 239 L230 349 L92 349Z" fill="url(#vest)"/>
+<path d="M137 239 L159 270 L182 239" fill="#fff"/>
+<path d="M159 268 L149 285 L160 325 L172 285Z" fill="#f5c44d"/>
+<rect x="118" y="299" width="86" height="32" rx="9" fill="#fff"/>
+<text x="161" y="321" text-anchor="middle" font-family="Arial" font-size="21" font-weight="bold" fill="#23477d">Умка</text>
+<path d="M238 262 Q285 243 285 205" stroke="#e9f3ff" stroke-width="28" stroke-linecap="round" fill="none"/>
+<g class="wave"><ellipse cx="285" cy="196" rx="17" ry="26" fill="#ffd4aa" transform="rotate(20 285 196)"/></g>
+<ellipse cx="160" cy="147" rx="84" ry="95" fill="#ffd7b0"/>
+<ellipse cx="78" cy="157" rx="14" ry="21" fill="#ffd7b0"/><ellipse cx="242" cy="157" rx="14" ry="21" fill="#ffd7b0"/>
+<path d="M76 121 Q56 64 108 57 Q123 29 163 51 Q194 25 220 64 Q251 82 239 123 Q212 115 192 83 Q174 108 139 89 Q109 126 76 121Z" fill="#51382f"/>
+<path d="M112 124 Q127 117 140 126 M182 126 Q195 116 211 125" stroke="#654336" stroke-width="6" fill="none" stroke-linecap="round"/>
+<g class="eyes"><ellipse cx="125" cy="147" rx="8" ry="11" fill="#302b35"/><ellipse cx="198" cy="147" rx="8" ry="11" fill="#302b35"/><circle cx="128" cy="143" r="3" fill="white"/><circle cx="201" cy="143" r="3" fill="white"/></g>
+<ellipse cx="114" cy="172" rx="14" ry="7" fill="#f6a49d" opacity=".65"/><ellipse cx="211" cy="172" rx="14" ry="7" fill="#f6a49d" opacity=".65"/>
+<g class="mouth"><ellipse cx="161" cy="193" rx="12" ry="18" fill="#a74b57"/></g>
+<style>
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+.wave{transform-box:fill-box;transform-origin:bottom center;animation:wave .8s ease-in-out infinite}
+.mouth{transform-box:fill-box;transform-origin:center;animation:none}
+@keyframes blink{0%,43%,47%,100%{transform:scaleY(1)}45%{transform:scaleY(.1)}}
+@keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(17deg)}}
+@keyframes talk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.45)}}
+</style><text x="258" y="70" font-size="42" text-anchor="middle">✨</text></svg>

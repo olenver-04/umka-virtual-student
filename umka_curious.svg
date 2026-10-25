@@ -23,4 +23,4 @@
 @keyframes blink{0%,43%,47%,100%{transform:scaleY(1)}45%{transform:scaleY(.1)}}
 @keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(17deg)}}
 @keyframes talk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.45)}}
-</style></svg>
+</style><text x="258" y="70" font-size="42" text-anchor="middle">👀</text></svg>
